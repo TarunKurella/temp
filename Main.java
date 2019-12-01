@@ -5,72 +5,53 @@ import java.math.*;
 
 public class Main {
 
-
-static String mutate(String old,int k,char b){
-  StringBuffer temp = new StringBuffer(old);
-  temp.setCharAt(k,b);
-  return temp.toString();
-}
-
-static void cross(ArrayList<String> genes,int d1,int d2,int k1,int k2){
-String dna1 = genes.get(d1);
-String dna2 = genes.get(d2);
-
-String ans1 = dna1.substring(0,k1-1)+dna2.substring(k2-1);
-String ans2 = dna2.substring(0,k2-1)+dna1.substring(k1);
-genes.add(ans1);
-genes.add(ans2);
-}
-
-static void count(char[] strand,int start,int end){
-  int A=0,G=0,T=0,C=0; 
-  for(int i=start;i<=end;i++){
-   switch(strand[i]){
-     case 'A' :A++;break;
-     case 'G' :G++;break;
-     case 'T' :T++;break;
-     case 'C' :C++;break;          
-   }
+static int cn = 1;
+static void median(int[] problems,int start,int end){
+  int temp[]= Arrays.copyOfRange(problems, start, end+1);
+   Arrays.sort(temp);
+   
+  int n = end-start+1;
+  if((n%2)!=0){
+  n=(n+1)/2;
+  System.out.println(temp[n-1]);
   }
-  System.out.println(A+" "+G+" "+T+" "+C);
-
+  else{
+    System.out.println((temp[(n/2)-1]+temp[((n+2)/2)-1])/2);
+  }
 }
  
+
+
+
   public static  void main(String[] args)throws IOException {
     try{
   Scanner hello = new Scanner(System.in);
-  ArrayList<String> genes = new ArrayList<String>();
-  genes.add("000");
-  
-  //taking input genes
-  int n = hello.nextInt();
-  for(int i=0;i<n;i++){
-   genes.add(hello.next());
-  }
-   
-  //performing operations
-   n = hello.nextInt();
-  for(int i=0;i<n;i++){
-    String key = hello.next();
-    switch(key){
-      case "MUTATE": int dno=hello.nextInt(); // dna no.
-                int pno=hello.nextInt(); // position no.
-                char b=hello.next().charAt(0); //base to replace 
-                genes.set(dno,mutate(genes.get(dno),pno-1,b));
-                break;
-      case "CROSS" : int dno1=hello.nextInt(); 
-                int dno2=hello.nextInt();
-                int k1=hello.nextInt();
-                int k2=hello.nextInt();
-                cross(genes,dno1,dno2,k1,k2);
-                break;
-      case "COUNT" : int dno3=hello.nextInt(); 
-                int k3=hello.nextInt();
-                int k4=hello.nextInt(); 
-                count(genes.get(dno3).toCharArray(),k3-1,k4-1);
-
-
+  while (hello.hasNextInt()) {
+    System.out.println("Case "+cn+":");
+    int tnp = hello.nextInt();//total no.of problems
+    int[] problems = new int[tnp];
+    for(int i=0;i<tnp;i++){
+      problems[i]=hello.nextInt();
     }
+    int nq= hello.nextInt(); // n0 of queries
+    for(int j=0;j<nq;j++){
+      int k1=hello.nextInt();
+      int k2=hello.nextInt();
+      median(problems,k1-1,k2-1);
+    }
+cn++;
+    
+}
+  
+
+
+  // int n = hello.nextInt();
+
+  // for(int i=0;i<n;i++){
+    
+
+  //   }
+    
    
 
  
@@ -81,10 +62,50 @@ static void count(char[] strand,int start,int end){
   // ans[0]=(char)((int)ans[0]-32);
   // System.out.println(new String(ans));
 
-}catch(Exception e){
+catch(Exception e){
 			return;
 		}}}
 
+
+// static HashSet<String> st = new HashSet<>(); 
+// static void subsequence(String str,String A,String B) 
+//     { 
+//         // iterate over the entire string 
+//         for (int i = 0; i < str.length(); i++) { 
+              
+//             // iterate from the end of the string 
+//             // to generate substrings 
+//             for (int j = str.length(); j > i; j--) { 
+//                 String sub_str = str.substring(i, j); 
+                
+     
+//                 if (!st.contains(sub_str)) {
+//                    if((sub_str.compareTo(A)>=0)&&(sub_str.compareTo(B)<=0))ans++;
+//                     st.add(sub_str);} 
+  
+//                 // drop kth character in the substring 
+//                 // and if its not in the set then recur 
+//                 for (int k = 1; k < sub_str.length() - 1; k++) { 
+//                     StringBuffer sb = new StringBuffer(sub_str); 
+   
+//                     // drop character from the string 
+//                     sb.deleteCharAt(k); 
+//                     if (!st.contains(sb)) 
+//                         ; 
+//                     subsequence(sb.toString(),A,B); 
+//                 } 
+//             } 
+//         } 
+//     }   
+
+ // for(int i=0;i<n;i++){
+  //   for(int j=i;j<=n;j++)
+  //   {tempp++;
+  //     String temp=message.substring(i,j);
+  //     if((temp.compareTo(A)>=0)&&(temp.compareTo(B)<=0))
+  //     ans++;
+  //   }
+  // }
 
 
 
